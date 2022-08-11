@@ -9,5 +9,6 @@
         {"name" : "stock_sim_backend" , "username" : "ganesh-dagadi" , "pckg_manager" : "gdmm"},
         {"name" : "python-dotenv" , "version" : "0.20.0" , "pckg_manager" : "pip3"},
         {"name" : "numpy" , "version":"1.23.1" , "pckg_manager":"pip3"}
-    ]
+    ],
+    "run":"python main.py"
 }
