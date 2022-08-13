@@ -36,7 +36,7 @@ class SearchResult(tk.Frame):
                 data = si.search_stocks(search_string)
                 modified_data = []
                 for i in data:
-                    sub_modified_list = [i['symbol'], i['name']]
+                    sub_modified_list = [i['symbol'], i['stock_name']]
                     modified_data.append(sub_modified_list)
 
                 search_res = ttk.Treeview(self, columns=(
