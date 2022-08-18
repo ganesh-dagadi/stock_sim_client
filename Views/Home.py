@@ -3,7 +3,7 @@ from tkinter import ttk
 import Views.Search_Result as Search_Result
 import Views.Holdings as Holdings
 import Views.Account as Account
-import stock_sim_backend.server_endpoints.account_info as ai
+import stock_sim_backend as backend
 import numpy as np
 
 
@@ -15,7 +15,7 @@ class HomeView(tk.Frame):
 
     def create_widgets(self):
         try:
-            acc_bal = ai.get_account_info()['balance']
+            acc_bal = backend.get_account_info()['balance']
             acc_bal = np.round(float(acc_bal) , 2)
             home_page_label = ttk.Label(self, text='Stock Sim', font=(
             "TkDefaultFont", 30), wraplength=600)

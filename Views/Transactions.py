@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import CENTER, ttk
-import stock_sim_backend.server_endpoints.account_info as ai
+import stock_sim_backend as backend
 import Views.Account as Account
 
 def clean_stck_transac_data(data):
@@ -25,7 +25,7 @@ class Transactions(tk.Frame):
     
     def create_widgets(self):
         try:
-            transac_data = ai.get_all_transactions()
+            transac_data = backend.get_all_transactions()
             stock_transactions =transac_data['stck_transac']
             acc_transactions = transac_data['acc_transac']
             stock_transactions = clean_stck_transac_data(stock_transactions)

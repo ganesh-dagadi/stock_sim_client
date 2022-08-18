@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import CENTER, ttk
 import Views.Home as Home
 import Views.Stock_dispg as Stock_dispg
-import stock_sim_backend.server_endpoints.stock_info as si
+import stock_sim_backend as backend
 
 class SearchResult(tk.Frame):
     def __init__(self, parent, controller):
@@ -33,7 +33,7 @@ class SearchResult(tk.Frame):
                     self, text="The searched entry cannot be empty, please return to homepage")
                 label_error.grid(row=3, column=0, padx=300)
             else:
-                data = si.search_stocks(search_string)
+                data = backend.search_stocks(search_string)
                 modified_data = []
                 for i in data:
                     sub_modified_list = [i['symbol'], i['stock_name']]

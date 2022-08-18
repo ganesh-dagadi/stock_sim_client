@@ -2,9 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import Views.Home as Home
 import Views.Stock_dispg as Stock_dispg
-import stock_sim_backend.server_endpoints.account_info as ai
-import stock_sim_backend.server_endpoints.stock_info as si
-import stock_sim_backend.server_endpoints.transactions as tr
+import stock_sim_backend as backend
 import numpy as np
 
 class Stock_buypg(tk.Frame):
@@ -16,7 +14,7 @@ class Stock_buypg(tk.Frame):
     
     def create_widgets(self):
         try:
-            acc_bal = ai.get_account_info()['balance']
+            acc_bal = backend.get_account_info()['balance']
             acc_bal = np.round(float(acc_bal) , 2)
             ticker_name_label = ttk.Label(self, text="text", wraplength=600, font=(
                 "TkDefaultFont", 20))
@@ -67,7 +65,7 @@ class Stock_buypg(tk.Frame):
     def display_stock_info(self, event):  
         try:
             selected_ticker = self.controller.app_data['Selected_ticker_buy'].get()
-            live_price = np.round(float(si.get_live_price(selected_ticker)) , 2)
+            live_price = np.round(float(backend.get_live_price(selected_ticker)) , 2)
             self.ticker_name_label['text'] = selected_ticker
             self.stock_price_label['text'] = str(live_price)
         except Exception as e:
@@ -101,7 +99,7 @@ class Stock_buypg(tk.Frame):
 
             if(not qty.isdigit()):
                 raise Exception("qty must be a number")
-            response = tr.buy_stock(self.controller.app_data['Selected_ticker_buy'].get() , int(qty))
+            response = backend.buy_stock(self.controller.app_data['Selected_ticker_buy'].get() , int(qty))
             res_label = ttk.Label(self , text=response)
             res_label.grid(row=6 , columnspan=5 , pady=20)
             self.confim_button['state'] = "disabled"

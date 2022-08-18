@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import stock_sim_backend.server_endpoints.stock_info as si
-import stock_sim_backend.server_endpoints.account_info as ai
-import stock_sim_backend.server_endpoints.transactions as tr
+import stock_sim_backend as backend
 import numpy as np
 import Views.Home as Home
 import Views.Holdings as Holdings
@@ -17,7 +15,7 @@ class Sell_stock(tk.Frame):
     def create_widgets(self):
         try:
             selected_ticker = self.controller.app_data['Selected_ticker_sell'].get()
-            live_price = np.round(float(si.get_live_price(selected_ticker)) , 2)
+            live_price = np.round(float(backend.get_live_price(selected_ticker)) , 2)
             title_label = ttk.Label(self , text=f"SELL {selected_ticker}" ,font=('TKDefaultFont' , 30))
             title_label.grid(row = 0 , columnspan = 5 , padx=300 , pady=10 , sticky=tk.W+tk.E)
             #Live price
@@ -40,7 +38,7 @@ class Sell_stock(tk.Frame):
             total_price_label.grid(row=4, column=3, pady=20)
 
             #Current holding
-            curr_hold = ai.get_one_holding(selected_ticker)
+            curr_hold = backend.get_one_holding(selected_ticker)
             current_label = ttk.Label(self , text="Current Holding" , font=('TkDefaultFont' , 15))
             current_label.grid(row=5 , columnspan=5 , pady=20)
             
@@ -128,7 +126,7 @@ class Sell_stock(tk.Frame):
             if(int(qty) > curr_hold['qty']):
                 raise Exception("You cant sell more than you own")
             
-            res = tr.sell_stock(self.curr_hold['ticker'] , int(self.qty_entered.get()))
+            res = backend.sell_stock(self.curr_hold['ticker'] , int(self.qty_entered.get()))
             self.res_label['text'] = res
         except Exception as e:
             self.res_label['text'] = e

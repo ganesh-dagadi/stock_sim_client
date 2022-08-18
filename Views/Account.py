@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import StringVar, ttk
-import stock_sim_backend.server_endpoints.account_info as ai
-import stock_sim_backend.server_endpoints.transactions as tr
+import stock_sim_backend as backend
 import numpy as np
 
 import Views.Holdings as Holdings
@@ -17,8 +16,8 @@ class Account(tk.Frame):
     
     def create_widgets(self):
         try:
-            account_data = ai.get_account_info()
-            total_holding_val = ai.get_total_holding_value()
+            account_data = backend.get_account_info()
+            total_holding_val = backend.get_total_holding_value()
 
             self.entered_amt = StringVar()
 
@@ -81,7 +80,7 @@ class Account(tk.Frame):
             entered_amt = float(entered_amt)
             if(entered_amt < 0.0):
                 raise Exception("Cant add -ve amount")
-            res = tr.add_amt_acc(entered_amt)
+            res = backend.add_amt_acc(entered_amt)
             self.res_label['text'] = res
             self.controller.show_page(Account)
         except Exception as e:

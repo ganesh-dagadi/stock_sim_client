@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import stock_sim_backend.server_endpoints.account_info as ai
-import stock_sim_backend.server_endpoints.stock_info as si
+import stock_sim_backend as backend
 import matplotlib.pyplot as plt
 import numpy as np
 import Views.Home as Home
@@ -20,7 +19,7 @@ class Stock_dispg(tk.Frame):
                 "TkDefaultFont", 20))
             ticker_name_label.grid(row=0, columnspan=7, padx=300,
                                     pady=10, sticky=tk.E+tk.W)
-            acc_bal = ai.get_account_info()['balance']
+            acc_bal = backend.get_account_info()['balance']
             acc_bal = np.round(float(acc_bal) , 2)
             ticker_name_label = ttk.Label(self, text="text", wraplength=600, font=(
                     "TkDefaultFont", 20))
@@ -87,7 +86,7 @@ class Stock_dispg(tk.Frame):
     def display_stock_info(self, event):
         try:
             selected_ticker = self.controller.app_data['Selected_ticker_info'].get()
-            live_price = si.get_live_price(selected_ticker)
+            live_price = backend.get_live_price(selected_ticker)
             live_price = np.round(float(live_price) , 2)
             self.ticker_name_label['text'] = selected_ticker
             self.stock_price_label['text'] = "Price : "+str(live_price)

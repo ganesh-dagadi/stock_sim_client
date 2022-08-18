@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import CENTER, ttk
 import numpy as np
-import stock_sim_backend.server_endpoints.account_info as ai
+import stock_sim_backend as backend
 import Views.Home as Home
 import Views.Sell_stock as Sell_stock
 
@@ -15,7 +15,7 @@ class Holdings(tk.Frame):
     def create_widgets(self):
         try:
             #Get required data from backend
-            total_holding_val = np.round(float(ai.get_total_holding_value()) , 2)
+            total_holding_val = np.round(float(backend.get_total_holding_value()) , 2)
             #Render the widgets
             title_label = ttk.Label(self , text="My Holdings" , font=(
             "TkDefaultFont", 30))
@@ -54,7 +54,7 @@ class Holdings(tk.Frame):
        
     def display_holdings_data(self , event):
         try:
-            holdings = ai.get_all_holdings()
+            holdings = backend.get_all_holdings()
             modified_holdings = []
             for i in holdings:
                 unit_price = np.round(float(i['unit_price']) , 2)
