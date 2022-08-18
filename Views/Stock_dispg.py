@@ -96,7 +96,7 @@ class Stock_dispg(tk.Frame):
     def disp_price_graph(self, duration):
         try:
             selected_ticker = self.controller.app_data['Selected_ticker_info'].get()
-            graph_data = si.get_historic_data(selected_ticker, duration)
+            graph_data = backend.get_historic_data(selected_ticker, duration)
             plt.plot(graph_data)
             plt.show()
         except Exception as e:
